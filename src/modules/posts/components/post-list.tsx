@@ -59,10 +59,28 @@ type PostListProps = {
   filter: PostFilter
 };
 
-const PostList = ({ posts }: PostListProps) => {
+const PostList = ({ posts, filter }: PostListProps) => {
+
+  // Handle filtering and sorting
+  const postsFiltered = posts.filter((post) => {
+      return (post.title.toLowerCase().includes(filter.search.toLowerCase()) &&
+      (filter.category === 'all' || post.categories.includes(filter.category)) &&
+      (filter.author === 'all' || post.author.name === filter.author)
+    );
+  }).sort((a, b) => {
+    if (filter.orderBy === 'Newest First') {
+      return b.createdAt - a.createdAt;
+    } else if (filter.orderBy === 'Oldest First') {
+      return a.createdAt - b.createdAt;
+    } else if (filter.orderBy === 'Title A-Z') {
+      return a.title.localeCompare(b.title);
+    }
+    return 0;
+  });
+
   return (
     <div className="space-y-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {posts?.map((post) => (
+      {postsFiltered?.map((post) => (
         <PostItem key={post.id} post={post} />
       ))}
     </div>
