@@ -3,10 +3,11 @@ import PostHeader from './modules/posts/components/post-header'
 import PostFilterBox from './modules/posts/components/post-filter-box'
 import PostList from './modules/posts/components/post-list'
 import api from './services/api'
+import type { Post } from './types/post'
 
 function App() {
   // const [count, setCount] = useState(0)
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState<Post[]>([])
 
   // Simulate fetching posts
   const fetchPosts = async () => {

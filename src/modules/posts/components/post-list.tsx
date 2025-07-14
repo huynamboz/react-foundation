@@ -1,7 +1,10 @@
+import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import type { Post } from "@/types/post";
+import { IconUser } from "@tabler/icons-react";
 
 type PostItemProps = {
-  post: { id: string; title: string; content: string };
+  post: Post;
 };
 
 const PostItem = ({ post }: PostItemProps) => {
@@ -17,15 +20,41 @@ const PostItem = ({ post }: PostItemProps) => {
       </div>
 
       {/* Post detail */}
-      <div>
-        
+      <div className="px-4 flex items-center justify-between">
+        <Badge variant="secondary">{post.categories}</Badge>
+
+        <div className="text-sm text-muted-foreground mt-1">
+          {post.maxReadTime}
+          <span className="ml-1">min read</span>
+        </div>
+      </div>
+
+      {/* Title */}
+      <h2 className="text-lg font-semibold px-4">{post.title}</h2>
+
+      {/* Content */}
+      <p className="text-sm text-muted-foreground px-4">
+        {post.content.length > 100
+          ? `${post.content.substring(0, 100)}...`
+          : post.content}
+      </p>
+
+      {/* Author and date */}
+      <div className="flex items-center justify-between px-4 mt-2">
+        <span className="text-xs text-muted-foreground flex items-center gap-1">
+          <IconUser className="size-4" />
+          {post.author.name}
+        </span>
+        <span className="text-xs text-muted-foreground">
+          {new Date(post.createdAt).toLocaleDateString()}
+        </span>
       </div>
     </Card>
   );
 };
 
 type PostListProps = {
-  posts: Array<{ id: string; title: string; content: string }>;
+  posts: Array<Post>;
 };
 const PostList = ({ posts }: PostListProps) => {
   return (
