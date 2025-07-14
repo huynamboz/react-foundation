@@ -3,20 +3,28 @@ import PostHeader from './modules/posts/components/post-header'
 import PostFilterBox from './modules/posts/components/post-filter-box'
 import PostList from './modules/posts/components/post-list'
 import api from './services/api'
-import type { Post } from './types/post'
+import type { Post, PostFilter } from './types/post'
 
 function App() {
-  // const [count, setCount] = useState(0)
   const [posts, setPosts] = useState<Post[]>([])
+  const [authors, setAuthors] = useState<string[]>([])
+  const [categories, setCategories] = useState<string[]>([])
 
-  // Simulate fetching posts
+  const [filter, setFilter] = useState<PostFilter>({
+    search: '',
+    category: 'all',
+    author: 'all',
+    orderBy: 'Newest First',
+  })
+
   const fetchPosts = async () => {
-    const response = await api.get('/tracking-order')
+    const response = await api.get<Post[]>('/tracking-order')
     console.log(response)
     setPosts(response.data)
+    setAuthors([...new Set(response.data.map((post: Post) => post.author.name))])
+    setCategories([...new Set(response.data.map((post: Post) => post.categories))])
   }
 
-  // Fetch posts on component mount
   useEffect(() => {
     fetchPosts()
   }, [])
@@ -25,8 +33,10 @@ function App() {
     <>
       <div className='container mx-auto px-4 py-8'>
         <PostHeader />
-        <PostFilterBox />
-        <PostList posts={posts}/>
+        <PostFilterBox filter={filter} onChangeFilter={setFilter} 
+          authors={authors} categories={categories}
+        />
+        <PostList posts={posts} filter={filter}/>
       </div>
     </>
   )

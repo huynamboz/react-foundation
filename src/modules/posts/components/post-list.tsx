@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import type { Post } from "@/types/post";
-import { IconUser } from "@tabler/icons-react";
+import type { Post, PostFilter } from "@/types/post";
+import { IconUser, IconCalendar } from "@tabler/icons-react";
 
 type PostItemProps = {
   post: Post;
@@ -23,7 +23,7 @@ const PostItem = ({ post }: PostItemProps) => {
       <div className="px-4 flex items-center justify-between">
         <Badge variant="secondary">{post.categories}</Badge>
 
-        <div className="text-sm text-muted-foreground mt-1">
+        <div className="text-xs text-muted-foreground mt-1">
           {post.maxReadTime}
           <span className="ml-1">min read</span>
         </div>
@@ -40,13 +40,14 @@ const PostItem = ({ post }: PostItemProps) => {
       </p>
 
       {/* Author and date */}
-      <div className="flex items-center justify-between px-4 mt-2">
+      <div className="flex mt-auto items-center justify-between px-4">
         <span className="text-xs text-muted-foreground flex items-center gap-1">
           <IconUser className="size-4" />
           {post.author.name}
         </span>
-        <span className="text-xs text-muted-foreground">
-          {new Date(post.createdAt).toLocaleDateString()}
+        <span className="text-xs text-muted-foreground flex items-center gap-1">
+          <IconCalendar className="size-4" />
+          {new Date(post.createdAt).toLocaleString()}
         </span>
       </div>
     </Card>
@@ -55,7 +56,9 @@ const PostItem = ({ post }: PostItemProps) => {
 
 type PostListProps = {
   posts: Array<Post>;
+  filter: PostFilter
 };
+
 const PostList = ({ posts }: PostListProps) => {
   return (
     <div className="space-y-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

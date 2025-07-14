@@ -13,3 +13,10 @@ export interface Post {
 interface Author {
   name: string;
 }
+
+export interface PostFilter {
+  search: string;
+  category: string;
+  author: string;
+  orderBy: 'Newest First' | 'Oldest First' | 'Title A-Z';
+}
