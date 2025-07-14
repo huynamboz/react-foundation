@@ -4,6 +4,7 @@ type PostHeaderProps = {
   authors: string[];
   categories: string[];
 };
+
 function PostHeader( { authors, categories }: PostHeaderProps) {
   return (
     <header className="flex items-center justify-between mb-8">

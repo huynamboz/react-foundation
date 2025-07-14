@@ -31,6 +31,7 @@ const PostFilterBox = ({filter, onChangeFilter, authors, categories}:PostFilterB
         </div>
       </div>
       <div className="flex items-center gap-4 flex-1 w-full">
+        {/* Filter category */}
         <Select value={filter.category} onValueChange={(value) => onChangeFilter({...filter, category: value})}>
           <SelectTrigger className="w-[180px] bg-white">
             <SelectValue placeholder="All category" />
@@ -50,6 +51,7 @@ const PostFilterBox = ({filter, onChangeFilter, authors, categories}:PostFilterB
           </SelectContent>
         </Select>
 
+        {/* Filter author */}
         <Select value={filter.author} onValueChange={(value) => onChangeFilter({...filter, author: value})}>
           <SelectTrigger className="w-[180px] bg-white">
             <SelectValue placeholder="All authors" />
@@ -69,6 +71,7 @@ const PostFilterBox = ({filter, onChangeFilter, authors, categories}:PostFilterB
           </SelectContent>
         </Select>
 
+        {/* Filter order by */}
         <Select value={filter.orderBy} onValueChange={(value) => onChangeFilter({...filter, orderBy: value as 'Newest First' | 'Oldest First' | 'Title A-Z'})}>
           <SelectTrigger className="w-[180px] bg-white">
             <SelectValue placeholder="Order by" />

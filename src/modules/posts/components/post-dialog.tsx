@@ -25,6 +25,7 @@ type PostDialogProps = {
   authors: string[];
   categories: string[];
 };
+
 export function PostDialog({ authors, categories }: PostDialogProps) {
   const [formData] = useState({
     title: "",
@@ -51,6 +52,7 @@ export function PostDialog({ authors, categories }: PostDialogProps) {
           <div className="grid sm:grid-cols-1 md:grid-cols-2 mt-5 gap-6 ">
             {/* Right */}
             <div>
+              {/* Title */}
               <div className="grid gap-2">
                 <Label htmlFor="title">Title *</Label>
                 <Input
@@ -61,6 +63,7 @@ export function PostDialog({ authors, categories }: PostDialogProps) {
                 />
               </div>
 
+              {/* Excerpt */}
               <div className="grid gap-2 mt-4">
                 <Label htmlFor="username-1">Excerpt *</Label>
                 <Textarea placeholder="Type your description here." />
@@ -105,6 +108,7 @@ export function PostDialog({ authors, categories }: PostDialogProps) {
                 </div>
               </div>
 
+              {/* Tags and thumbnail */}
               <div className="grid gap-2 mt-4">
                 <Label htmlFor="tag">Tag</Label>
                 <div className="flex items-center gap-2">
@@ -137,6 +141,7 @@ export function PostDialog({ authors, categories }: PostDialogProps) {
                 </div>
               </div>
 
+              {/* Read time */}
               <div className="grid gap-2 mt-4">
                 <Label htmlFor="readTime">
                   Estimate read time *
@@ -162,6 +167,8 @@ export function PostDialog({ authors, categories }: PostDialogProps) {
               <p className="text-muted-foreground text-xs">0 characters</p>
             </div>
           </div>
+
+          {/* Footer */}
           <DialogFooter className="border-t mt-6 pt-4">
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
