@@ -2,20 +2,11 @@ import axios from 'axios';
 
 // Create axios instance with base configuration
 const api = axios.create({
-  baseURL: process.env.VITE_API_BASE_URL || 'https://658c0196859b3491d3f54467.mockapi.io',
+  baseURL: 'https://658c0196859b3491d3f54467.mockapi.io',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
-});
-
-// Add auth token to requests
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
 });
 
 // Handle common errors
