@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -17,11 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
   SelectContent,
-  SelectGroup,
-  SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
-import { IconPlus } from "@tabler/icons-react";
+import { IconPhoto, IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
 
 type PostDialogProps = {
@@ -29,7 +26,7 @@ type PostDialogProps = {
   categories: string[];
 };
 export function PostDialog({ authors, categories }: PostDialogProps) {
-  const [formData, setFormData] = useState({
+  const [formData] = useState({
     title: "",
     excerpt: "",
     category: "",
@@ -45,17 +42,17 @@ export function PostDialog({ authors, categories }: PostDialogProps) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-3xl">
+      <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto">
         <form className="w-full">
           <DialogHeader>
             <DialogTitle>Create New Blog Post</DialogTitle>
           </DialogHeader>
 
-          <div className="grid grid-cols-2 mt-5 gap-4">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 mt-5 gap-6 ">
             {/* Right */}
             <div>
               <div className="grid gap-2">
-                <Label htmlFor="title">Title</Label>
+                <Label htmlFor="title">Title *</Label>
                 <Input
                   required
                   id="title"
@@ -107,16 +104,60 @@ export function PostDialog({ authors, categories }: PostDialogProps) {
                   </Select>
                 </div>
               </div>
+
+              <div className="grid gap-2 mt-4">
+                <Label htmlFor="tag">Tag</Label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    required
+                    id="tag"
+                    name="tag"
+                    placeholder="Add a tag"
+                  />
+                  <Button type="button" variant="outline">
+                    Add
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid gap-2 mt-4">
+                <Label htmlFor="thumbnailURL">
+                  Feature image URL
+                </Label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    required
+                    id="thumbnailURL"
+                    name="thumbnailURL"
+                    placeholder="https://example.com/image.jpg"
+                  />
+                  <Button type="button" variant="outline">
+                    <IconPhoto className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid gap-2 mt-4">
+                <Label htmlFor="readTime">
+                  Estimate read time *
+                </Label>
+                <Input
+                  required
+                  id="readTime"
+                  name="readTime"
+                  placeholder="5 min read"
+                />
+              </div>
             </div>
 
             {/* Left */}
             <div className="flex flex-col gap-2">
-              <Label htmlFor="content">Content</Label>
+              <Label htmlFor="content">Content *</Label>
               <Textarea
                 id="content"
                 name="content"
                 placeholder="Type your content here."
-                className="h-[200px]"
+                className="h-[400px]"
               />
               <p className="text-muted-foreground text-xs">0 characters</p>
             </div>
@@ -125,7 +166,7 @@ export function PostDialog({ authors, categories }: PostDialogProps) {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">Publish post</Button>
           </DialogFooter>
         </form>
       </DialogContent>

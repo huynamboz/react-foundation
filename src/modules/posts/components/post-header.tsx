@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { IconPlus } from "@tabler/icons-react";
 import { PostDialog } from "./post-dialog";
 
 type PostHeaderProps = {
