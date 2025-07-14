@@ -32,6 +32,27 @@ function App() {
     fetchPosts();
   }, []);
 
+  // Handle filtering and sorting
+  const postsFiltered = posts
+    .filter((post) => {
+      return (
+        post.title.toLowerCase().includes(filter.search.toLowerCase()) &&
+        (filter.category === "all" ||
+          post.categories.includes(filter.category)) &&
+        (filter.author === "all" || post.author.name === filter.author)
+      );
+    })
+    .sort((a, b) => {
+      if (filter.orderBy === "Newest First") {
+        return b.createdAt - a.createdAt;
+      } else if (filter.orderBy === "Oldest First") {
+        return a.createdAt - b.createdAt;
+      } else if (filter.orderBy === "Title A-Z") {
+        return a.title.localeCompare(b.title);
+      }
+      return 0;
+    });
+
   return (
     <>
       <div className="container mx-auto px-4 py-8">
@@ -42,7 +63,10 @@ function App() {
           authors={authors}
           categories={categories}
         />
-        <PostList posts={posts} filter={filter} />
+        <p className="text-sm text-muted-foreground mb-6">
+          Showing {postsFiltered.length} of {posts.length} posts
+        </p>
+        <PostList posts={postsFiltered} />
       </div>
     </>
   );
