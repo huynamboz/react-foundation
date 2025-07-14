@@ -1,7 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
+import { PostDialog } from "./post-dialog";
 
-function PostHeader() {
+type PostHeaderProps = {
+  authors: string[];
+  categories: string[];
+};
+function PostHeader( { authors, categories }: PostHeaderProps) {
   return (
     <header className="flex items-center justify-between mb-8">
       <div>
@@ -9,10 +14,10 @@ function PostHeader() {
         <p className=" text-muted-foreground">Discover insights, tutorials, and updates from our team</p>
       </div>
 
-      <Button className="edit-button">
-        <IconPlus className="h-4 w-4" />
-        Add new post
-      </Button>
+      <PostDialog 
+        authors={authors}
+        categories={categories}
+      />
     </header>
   );
 }
