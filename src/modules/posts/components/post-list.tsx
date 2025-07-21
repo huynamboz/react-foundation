@@ -13,7 +13,7 @@ const PostItem = ({ post }: PostItemProps) => {
       {/* Thumbnail */}
       <div className="mb-4 overflow-hidden">
         <img
-          src={`https://picsum.photos/seed/${post.id}/300/200`}
+          src={post.thumbnailURL || `https://picsum.photos/seed/${post.id}/300/200`}
           alt={post.title}
           className="w-full h-48 object-cover hover:transform hover:scale-105 transition-transform"
         />

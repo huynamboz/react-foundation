@@ -57,7 +57,7 @@ function App() {
   // Handle form submission
   const handlePostSubmit = async (data: PostForm) => {
     try {
-      const response = await api.post<Post>("/tracking-order", data);
+      const response = await api.post<Post>("/tracking-order", {...data, author: { name: data.author}});
       setPosts((prevPosts) => [...prevPosts, response.data]);
     } catch (error) {
       console.error("Error creating post:", error);

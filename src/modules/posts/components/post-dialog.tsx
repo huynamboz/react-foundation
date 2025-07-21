@@ -27,7 +27,7 @@ const postSchema = yup.object({
   title: yup.string().required("Title is required"),
   excerpt: yup.string().required("Excerpt is required"),
   author: yup.string().required("Author is required"),
-  category: yup.string().required("Category is required"),
+  categories: yup.string().required("Category is required"),
   tag: yup.string(),
   thumbnailURL: yup.string().url("Must be a valid URL"),
   readTime: yup.string().required("Read time is required"),
@@ -116,7 +116,7 @@ export function PostDialog({ authors, categories, onSubmit }: PostDialogProps) {
                   <Label>Category *</Label>
                   <Controller
                     control={control}
-                    name="category"
+                    name="categories"
                     render={({ field }) => (
                       <Select onValueChange={field.onChange} value={field.value}>
                         <SelectTrigger className="w-full bg-white">
@@ -132,7 +132,7 @@ export function PostDialog({ authors, categories, onSubmit }: PostDialogProps) {
                       </Select>
                     )}
                   />
-                  {errors.category && <p className="text-red-500 text-xs">{errors.category.message}</p>}
+                  {errors.categories && <p className="text-red-500 text-xs">{errors.categories.message}</p>}
                 </div>
               </div>
 
