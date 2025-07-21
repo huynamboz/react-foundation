@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -51,12 +52,12 @@ export function PostDialog({ authors, categories, onSubmit }: PostDialogProps) {
     control,
     formState: { errors },
   } = useForm<PostForm>({
-    resolver: yupResolver(postSchema),
+    resolver: yupResolver(postSchema) as any,
   });
 
-  const handleFormSubmit= (data) => {
+  const handleFormSubmit= (data: any) => {
     onSubmit(data);
-    setOpen(false); // 👈 Đóng Dialog khi submit thành công
+    setOpen(false);
   };
 
   return (
