@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -35,29 +34,33 @@ const postSchema = yup.object({
   content: yup.string().required("Content is required"),
 });
 
-type PostForm = yup.InferType<typeof postSchema>;
+export type PostForm = yup.InferType<typeof postSchema>;
 
 type PostDialogProps = {
   authors: string[];
   categories: string[];
+  onSubmit: (data: PostForm) => void;
 };
 
-export function PostDialog({ authors, categories }: PostDialogProps) {
+export function PostDialog({ authors, categories, onSubmit }: PostDialogProps) {
+  const [open, setOpen] = useState(false);
+
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<PostForm>({
-    resolver: yupResolver(postSchema) as any,
+    resolver: yupResolver(postSchema),
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const handleFormSubmit= (data) => {
+    onSubmit(data);
+    setOpen(false); // 👈 Đóng Dialog khi submit thành công
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="edit-button">
           <IconPlus className="h-4 w-4" />
@@ -66,7 +69,7 @@ export function PostDialog({ authors, categories }: PostDialogProps) {
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto">
-        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <form className="w-full" onSubmit={handleSubmit(handleFormSubmit)}>
           <DialogHeader>
             <DialogTitle>Create New Blog Post</DialogTitle>
           </DialogHeader>
@@ -167,9 +170,9 @@ export function PostDialog({ authors, categories }: PostDialogProps) {
           </div>
 
           <DialogFooter className="border-t mt-6 pt-4">
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
+            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
             <Button type="submit">Publish post</Button>
           </DialogFooter>
         </form>

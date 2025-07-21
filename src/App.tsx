@@ -4,6 +4,7 @@ import PostFilterBox from "./modules/posts/components/post-filter-box";
 import PostList from "./modules/posts/components/post-list";
 import api from "./services/api";
 import type { Post, PostFilter } from "./types/post";
+import type { PostForm } from "./modules/posts/components/post-dialog";
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -53,10 +54,20 @@ function App() {
       return 0;
     });
 
+  // Handle form submission
+  const handlePostSubmit = async (data: PostForm) => {
+    try {
+      const response = await api.post<Post>("/tracking-order", data);
+      setPosts((prevPosts) => [...prevPosts, response.data]);
+    } catch (error) {
+      console.error("Error creating post:", error);
+    }
+  };
+
   return (
     <>
       <div className="container mx-auto px-4 py-8">
-        <PostHeader authors={authors} categories={categories} />
+        <PostHeader authors={authors} categories={categories} onSubmit={handlePostSubmit} />
         <PostFilterBox
           filter={filter}
           onChangeFilter={setFilter}

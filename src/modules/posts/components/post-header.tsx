@@ -1,11 +1,13 @@
-import { PostDialog } from "./post-dialog";
+import { PostDialog, type PostForm } from "./post-dialog";
 
 type PostHeaderProps = {
   authors: string[];
   categories: string[];
+  onSubmit: (data: PostForm) => void;
 };
 
-function PostHeader( { authors, categories }: PostHeaderProps) {
+function PostHeader( { authors, categories, onSubmit }: PostHeaderProps) {
+
   return (
     <header className="flex items-center justify-between mb-8">
       <div>
@@ -14,6 +16,7 @@ function PostHeader( { authors, categories }: PostHeaderProps) {
       </div>
 
       <PostDialog 
+        onSubmit={onSubmit}
         authors={authors}
         categories={categories}
       />
