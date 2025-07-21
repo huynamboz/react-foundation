@@ -30,7 +30,7 @@ const postSchema = yup.object({
   categories: yup.string().required("Category is required"),
   tag: yup.string(),
   thumbnailURL: yup.string().url("Must be a valid URL"),
-  readTime: yup.string().required("Read time is required"),
+  maxReadTime: yup.string().required("Read time is required"),
   content: yup.string().required("Content is required"),
 });
 
@@ -157,8 +157,8 @@ export function PostDialog({ authors, categories, onSubmit }: PostDialogProps) {
 
               <div className="grid gap-2 mt-4">
                 <Label>Estimate read time *</Label>
-                <Input placeholder="5 min read" {...register("readTime")} />
-                {errors.readTime && <p className="text-red-500 text-xs">{errors.readTime.message}</p>}
+                <Input placeholder="5 min read" {...register("maxReadTime")} />
+                {errors.maxReadTime && <p className="text-red-500 text-xs">{errors.maxReadTime.message}</p>}
               </div>
             </div>
 
